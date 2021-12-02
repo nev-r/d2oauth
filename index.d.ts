@@ -9,7 +9,7 @@ retrieveToken: () => undefined | BungieNetTokenMeta | Promise<undefined | Bungie
  * a function to retrieve arbitrary JSON-encodable data.
  * the authentication token object will be sent as a param to this function.
  */
-storeToken: (_: BungieNetTokenMeta) => void | Promise<void>, options?: {
+storeToken: (_: BungieNetTokenMeta) => any | Promise<any>, options?: {
     /**
      * always ON, unless explicitly set to false. this backs off increasingly,
      * delaying new api requests as previous ones encounter downtime or throttling responses.

@@ -1,0 +1,21 @@
+{
+  "name": "oauth-base",
+  "version": "0.0.1",
+  "description": "",
+  "type": "module",
+  "author": "",
+  "license": "UNLICENSED",
+  "scripts": {
+    "start": "tsc"
+  },
+  "main": "./index.js",
+  "dependencies": {
+    "httpclient": "github:nev-r/httpclient"
+  },
+  "peerDependencies": {
+    "bungie-api-ts": "^4.13.0"
+  },
+  "devDependencies": {
+    "typescript": "^4.5.2"
+  }
+}

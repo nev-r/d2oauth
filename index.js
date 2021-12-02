@@ -99,12 +99,18 @@ authorization_code, client_id, client_secret,
  * the authentication token object will be sent as a param to this function.
  */
 storeToken) {
+    const body = new URLSearchParams({
+        grant_type: "authorization_code",
+        code: authorization_code,
+        client_id,
+        client_secret,
+    });
     const tokenFetch = await fetch("https://www.bungie.net/platform/app/oauth/token/", {
         method: "POST",
         headers: {
             "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
         },
-        body: `grant_type=authorization_code&code=${authorization_code}&client_id=${client_id}&client_secret=${client_secret}`,
+        body,
     });
     const token = await tokenFetch.json();
     if (!looksLikeBnetAuthToken(token)) {

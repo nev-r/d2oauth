@@ -1,12 +1,12 @@
 import { HttpClient } from "bungie-api-ts/http";
 export declare function createOauthHttpClient(apiKey: string, client_id: string, client_secret: string, 
 /**
- * a function to store arbitrary JSON-encodable data.
+ * a function to retrieve arbitrary JSON-encodable data.
  * this should return an authentication token object.
  */
 retrieveToken: () => undefined | BungieNetTokenMeta | Promise<undefined | BungieNetTokenMeta>, 
 /**
- * a function to retrieve arbitrary JSON-encodable data.
+ * a function to store arbitrary JSON-encodable data.
  * the authentication token object will be sent as a param to this function.
  */
 storeToken: (_: BungieNetTokenMeta) => any | Promise<any>, options?: {
@@ -49,3 +49,11 @@ export interface BungieNetTokenMeta {
     expires_at: number;
     refresh_expires_at: number;
 }
+export declare function fetchTokenWithAuthCode(
+/** the thing that is returned in the URL query params, by bungie.net */
+authorization_code: string, client_id: string, client_secret: string, 
+/**
+ * a function to store arbitrary JSON-encodable data.
+ * the authentication token object will be sent as a param to this function.
+ */
+storeToken: (_: BungieNetTokenMeta) => any | Promise<any>): Promise<any>;

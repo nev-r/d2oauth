@@ -2,12 +2,12 @@ import { createHttpClient } from "httpclient";
 const TOKEN_URL = "https://www.bungie.net/platform/app/oauth/token/";
 export function createOauthHttpClient(apiKey, client_id, client_secret, 
 /**
- * a function to store arbitrary JSON-encodable data.
+ * a function to retrieve arbitrary JSON-encodable data.
  * this should return an authentication token object.
  */
 retrieveToken, 
 /**
- * a function to retrieve arbitrary JSON-encodable data.
+ * a function to store arbitrary JSON-encodable data.
  * the authentication token object will be sent as a param to this function.
  */
 storeToken, options = {}) {
@@ -56,7 +56,7 @@ or has no initial token been issued yet?`;
                 throw "parse failed ❌";
             }
             if (!looksLikeBnetAuthToken(parsedNewToken)) {
-                console.error(token);
+                console.error(parsedNewToken);
                 throw `this doesn't look like a token`;
             }
             options.verbose && console.info("refreshed ☑️ ");
@@ -90,4 +90,31 @@ function looksLikeBnetAuthToken(token) {
         typeof token.refresh_token === "string" &&
         typeof token.refresh_expires_in === "number" &&
         typeof token.membership_id === "string");
+}
+export async function fetchTokenWithAuthCode(
+/** the thing that is returned in the URL query params, by bungie.net */
+authorization_code, client_id, client_secret, 
+/**
+ * a function to store arbitrary JSON-encodable data.
+ * the authentication token object will be sent as a param to this function.
+ */
+storeToken) {
+    const tokenFetch = await fetch("https://www.bungie.net/platform/app/oauth/token/", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+        },
+        body: `grant_type=authorization_code&code=${authorization_code}&client_id=${client_id}&client_secret=${client_secret}`,
+    });
+    const token = await tokenFetch.json();
+    if (!looksLikeBnetAuthToken(token)) {
+        console.error(token);
+        throw `this doesn't look like a token`;
+    }
+    const tokenMeta = {
+        token,
+        expires_at: Date.now() + token.expires_in * 1000,
+        refresh_expires_at: Date.now() + token.refresh_expires_in * 1000,
+    };
+    return storeToken(tokenMeta);
 }

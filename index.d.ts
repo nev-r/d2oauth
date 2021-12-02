@@ -49,7 +49,7 @@ export interface BungieNetTokenMeta {
     expires_at: number;
     refresh_expires_at: number;
 }
-export declare function fetchTokenWithAuthCode(
+export declare function setupTokenWithAuthCode(
 /** the thing that is returned in the URL query params, by bungie.net */
 authorization_code: string, client_id: string, client_secret: string, 
 /**

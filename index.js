@@ -91,7 +91,7 @@ function looksLikeBnetAuthToken(token) {
         typeof token.refresh_expires_in === "number" &&
         typeof token.membership_id === "string");
 }
-export async function fetchTokenWithAuthCode(
+export async function setupTokenWithAuthCode(
 /** the thing that is returned in the URL query params, by bungie.net */
 authorization_code, client_id, client_secret, 
 /**

@@ -4,7 +4,7 @@ export declare function createOauthHttpClient(apiKey: string, client_id: string,
  * a function to store arbitrary JSON-encodable data.
  * this should return an authentication token object.
  */
-retrieveToken: () => BungieNetTokenMeta | Promise<BungieNetTokenMeta>, 
+retrieveToken: () => undefined | BungieNetTokenMeta | Promise<undefined | BungieNetTokenMeta>, 
 /**
  * a function to retrieve arbitrary JSON-encodable data.
  * the authentication token object will be sent as a param to this function.

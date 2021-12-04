@@ -10,9 +10,7 @@
   },
   "main": "./index.js",
   "dependencies": {
-    "httpclient": "github:nev-r/httpclient"
-  },
-  "peerDependencies": {
+    "httpclient": "github:nev-r/httpclient",
     "bungie-api-ts": "^4.13.0"
   },
   "devDependencies": {

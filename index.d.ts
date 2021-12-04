@@ -36,6 +36,7 @@ storeToken: (_: BungieNetTokenMeta) => any | Promise<any>, options?: {
     };
     verbose?: boolean;
 }): HttpClient;
+export declare function looksLikeBnetAuthToken(token: BungieNetToken): boolean;
 export interface BungieNetToken {
     access_token: string;
     token_type: string;

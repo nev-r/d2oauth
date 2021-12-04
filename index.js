@@ -82,7 +82,7 @@ or has no initial token been issued yet?`;
         fetchFunctionOverride: fetchWithBungieOAuth,
     });
 }
-function looksLikeBnetAuthToken(token) {
+export function looksLikeBnetAuthToken(token) {
     return (token &&
         typeof token.access_token === "string" &&
         typeof token.token_type === "string" &&

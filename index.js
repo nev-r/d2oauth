@@ -1,14 +1,27 @@
 import { createHttpClient } from "httpclient";
 const TOKEN_URL = "https://www.bungie.net/platform/app/oauth/token/";
+/** creates a bungie-api-ts-compatible httpclient, with oauth integration */
 export function createOauthHttpClient(apiKey, client_id, client_secret, 
 /**
- * a function to retrieve arbitrary JSON-encodable data.
+ * provide a function which retrieves arbitrary JSON-encodable data.
  * this should return an authentication token object.
+ *
+ * @example
+ * () => JSON.parse(localStorage.getItem('oauth_token'));
+ *
+ * @example
+ * () => JSON.parse(fs.readFileSync('./oauth_token.json', {encoding:'utf8'}));
  */
 retrieveToken, 
 /**
- * a function to store arbitrary JSON-encodable data.
+ * provide a function which stores arbitrary JSON-encodable data.
  * the authentication token object will be sent as a param to this function.
+ *
+ * @example
+ * (data) => localStorage.setItem('oauth_token', JSON.stringify(data));
+ *
+ * @example
+ * (data) => fs.writeFileSync('./oauth_token.json', JSON.stringify(data));
  */
 storeToken, options = {}) {
     async function fetchWithBungieOAuth(request, requestOptions) {
@@ -91,7 +104,8 @@ export function looksLikeBnetAuthToken(token) {
         typeof token.refresh_expires_in === "number" &&
         typeof token.membership_id === "string");
 }
-export async function setupTokenWithAuthCode(
+/** exchanges an authorization code from bungie, for an oauth token */
+export async function getInitialToken(
 /** the thing that is returned in the URL query params, by bungie.net */
 authorization_code, client_id, client_secret, 
 /**
@@ -105,7 +119,7 @@ storeToken) {
         client_id,
         client_secret,
     });
-    const tokenFetch = await fetch("https://www.bungie.net/platform/app/oauth/token/", {
+    const tokenFetch = await fetch(TOKEN_URL, {
         method: "POST",
         headers: {
             "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",

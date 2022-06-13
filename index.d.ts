@@ -78,5 +78,5 @@ authorization_code: string, client_id: string, client_secret: string,
  * @example
  * (data) => fs.writeFileSync('./oauth_token.json', JSON.stringify(data));
  */
-storeToken: (_: BungieNetTokenMeta) => any | Promise<any>): Promise<BungieNetToken>;
+storeToken: (_: BungieNetTokenMeta) => any | Promise<any>): Promise<BungieNetTokenMeta>;
 export declare const setupTokenWithAuthCode: typeof getInitialToken;

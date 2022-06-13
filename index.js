@@ -143,6 +143,6 @@ storeToken) {
         refresh_expires_at: Date.now() + token.refresh_expires_in * 1000,
     };
     await storeToken(tokenMeta);
-    return token;
+    return tokenMeta;
 }
 export const setupTokenWithAuthCode = getInitialToken;

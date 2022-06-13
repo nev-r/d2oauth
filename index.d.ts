@@ -69,8 +69,14 @@ export declare function getInitialToken(
 /** the thing that is returned in the URL query params, by bungie.net */
 authorization_code: string, client_id: string, client_secret: string, 
 /**
- * a function to store arbitrary JSON-encodable data.
+ * provide a function which stores arbitrary JSON-encodable data.
  * the authentication token object will be sent as a param to this function.
+ *
+ * @example
+ * (data) => localStorage.setItem('oauth_token', JSON.stringify(data));
+ *
+ * @example
+ * (data) => fs.writeFileSync('./oauth_token.json', JSON.stringify(data));
  */
-storeToken: (_: BungieNetTokenMeta) => any | Promise<any>): Promise<any>;
+storeToken: (_: BungieNetTokenMeta) => any | Promise<any>): Promise<BungieNetToken>;
 export declare const setupTokenWithAuthCode: typeof getInitialToken;

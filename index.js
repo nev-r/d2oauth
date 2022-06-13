@@ -109,8 +109,14 @@ export async function getInitialToken(
 /** the thing that is returned in the URL query params, by bungie.net */
 authorization_code, client_id, client_secret, 
 /**
- * a function to store arbitrary JSON-encodable data.
+ * provide a function which stores arbitrary JSON-encodable data.
  * the authentication token object will be sent as a param to this function.
+ *
+ * @example
+ * (data) => localStorage.setItem('oauth_token', JSON.stringify(data));
+ *
+ * @example
+ * (data) => fs.writeFileSync('./oauth_token.json', JSON.stringify(data));
  */
 storeToken) {
     const body = new URLSearchParams({
@@ -136,6 +142,7 @@ storeToken) {
         expires_at: Date.now() + token.expires_in * 1000,
         refresh_expires_at: Date.now() + token.refresh_expires_in * 1000,
     };
-    return storeToken(tokenMeta);
+    await storeToken(tokenMeta);
+    return token;
 }
 export const setupTokenWithAuthCode = getInitialToken;

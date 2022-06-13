@@ -138,3 +138,4 @@ storeToken) {
     };
     return storeToken(tokenMeta);
 }
+export const setupTokenWithAuthCode = getInitialToken;

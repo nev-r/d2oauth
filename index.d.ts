@@ -73,3 +73,4 @@ authorization_code: string, client_id: string, client_secret: string,
  * the authentication token object will be sent as a param to this function.
  */
 storeToken: (_: BungieNetTokenMeta) => any | Promise<any>): Promise<any>;
+export declare const setupTokenWithAuthCode: typeof getInitialToken;

@@ -10,7 +10,7 @@
   },
   "main": "./index.js",
   "dependencies": {
-    "httpclient": "github:nev-r/httpclient",
+    "httpclient": "github:nev-r/httpclient#nofetch",
     "bungie-api-ts": "^4.13.0"
   },
   "devDependencies": {
